@@ -3,9 +3,13 @@ import {type FormEvent, useState} from "react";
 
 interface ChatInputProps{
     sendMessage: (message: string, model: string) => void;
+        initialModel?: string;
 }
 
-export default function ChatInput({sendMessage} : ChatInputProps){
+export default function ChatInput({
+    sendMessage,
+    initialModel,
+    } : ChatInputProps){
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         if(!message.trim() || !selectedModel){
@@ -30,7 +34,9 @@ export default function ChatInput({sendMessage} : ChatInputProps){
         },        
     ];
     const [message,setMessage] = useState("");
-    const [selectedModel, setSelectedmodel] = useState(models[0].id);
+    const [selectedModel, setSelectedmodel] = useState(
+        initialModel || models[0].id,
+    );
     return(
         <form onSubmit = {handleSubmit}>  
         <div className="flex flex-col justify-between gap-4 rounded-2xl border border-gray-200 p-4">
